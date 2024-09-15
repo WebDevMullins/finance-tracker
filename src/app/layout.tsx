@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster'
 
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
+import { ConvexClientProvider } from '@/providers/convex-client-provider'
 import { ThemeProvider } from '@/providers/theme-provider'
 
 import '@/styles/globals.css'
@@ -64,7 +65,7 @@ export default function RootLayout({
 					enableSystem>
 					<div vaul-drawer-wrapper=''>
 						<div className='relative flex min-h-screen flex-col bg-background'>
-							{children}
+							<ConvexClientProvider>{children}</ConvexClientProvider>
 						</div>
 					</div>
 					<Toaster />

@@ -1,4 +1,10 @@
+'use client'
+
+import { api } from '@/../convex/_generated/api'
+import { useQuery } from 'convex/react'
+
 export default function DashboardPage() {
+	const tasks = useQuery(api.test.get)
 	return (
 		<div className='container py-12'>
 			<div className='overflow-hidden rounded-[0.5rem] border bg-background shadow'>
@@ -14,6 +20,9 @@ export default function DashboardPage() {
 						<div className='flex items-center space-x-2'></div>
 					</div>
 					{/* Charts go here */}
+					<div className='flex flex-col items-center justify-between space-y-4'>
+						{tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)}
+					</div>
 				</div>
 			</div>
 		</div>
