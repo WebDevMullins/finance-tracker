@@ -2,11 +2,12 @@ import type { Metadata, Viewport } from 'next'
 
 import { Toaster } from '@/components/ui/toaster'
 
+import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/providers/theme-provider'
+
 import '@/styles/globals.css'
 import { GeistSans } from 'geist/font/sans'
-import { siteConfig } from './config/site'
-import { ThemeProvider } from './providers/theme-provider'
 
 export const metadata: Metadata = {
 	title: {
