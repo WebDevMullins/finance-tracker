@@ -1,3 +1,4 @@
+import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata, Viewport } from 'next'
 
 import { Toaster } from '@/components/ui/toaster'
@@ -50,27 +51,29 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<html
-			lang='en'
-			suppressHydrationWarning>
-			<body
-				className={cn(
-					'min-h-screen bg-background font-sans antialiased',
-					GeistSans.variable
-				)}>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='dark'
-					disableTransitionOnChange
-					enableSystem>
-					<div vaul-drawer-wrapper=''>
-						<div className='relative flex min-h-screen flex-col bg-background'>
-							<ConvexClientProvider>{children}</ConvexClientProvider>
+		<ClerkProvider>
+			<html
+				lang='en'
+				suppressHydrationWarning>
+				<body
+					className={cn(
+						'min-h-screen bg-background font-sans antialiased',
+						GeistSans.variable
+					)}>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='dark'
+						disableTransitionOnChange
+						enableSystem>
+						<div vaul-drawer-wrapper=''>
+							<div className='relative flex min-h-screen flex-col bg-background'>
+								<ConvexClientProvider>{children}</ConvexClientProvider>
+							</div>
 						</div>
-					</div>
-					<Toaster />
-				</ThemeProvider>
-			</body>
-		</html>
+						<Toaster />
+					</ThemeProvider>
+				</body>
+			</html>
+		</ClerkProvider>
 	)
 }

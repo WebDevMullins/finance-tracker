@@ -1,14 +1,14 @@
-// import {
-// 	ClerkLoaded,
-// 	ClerkLoading,
-// 	SignInButton,
-// 	SignedIn,
-// 	SignedOut,
-// 	UserButton
-// } from '@clerk/nextjs'
+import {
+	ClerkLoaded,
+	ClerkLoading,
+	SignInButton,
+	SignedIn,
+	SignedOut,
+	UserButton
+} from '@clerk/nextjs'
 
-// import { Button } from '@/components/ui/button'
-// import { Loader2Icon } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Loader2Icon } from 'lucide-react'
 
 import { MainNav } from './main-nav'
 import { MobileNav } from './mobile-nav'
@@ -26,23 +26,23 @@ export function SiteHeader() {
 						{/* <CommandMenu /> */}
 					</div>
 					<nav className='flex items-center justify-center space-x-6'>
-						{/* <SignedOut>
+						<SignedOut>
 							<SignInButton>
 								<Button variant={'outline'}>Login</Button>
 							</SignInButton>
 							<SignInButton>
 								<Button>Get Started Now</Button>
 							</SignInButton>
-						</SignedOut> */}
+						</SignedOut>
 						{/* <UserButton /> */}
-						{/* <SignedIn>
+						<SignedIn>
 							<ClerkLoaded>
 								<UserButton />
 							</ClerkLoaded>
 							<ClerkLoading>
 								<Loader2Icon className='size-8 animate-spin text-muted-foreground' />
 							</ClerkLoading>
-						</SignedIn> */}
+						</SignedIn>
 					</nav>
 				</div>
 			</div>
