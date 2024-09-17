@@ -1,13 +1,11 @@
-import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata, Viewport } from 'next'
 
 import { Toaster } from '@/components/ui/toaster'
 
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
-import { ConvexClientProvider } from '@/providers/convex-client-provider'
-import { ThemeProvider } from '@/providers/theme-provider'
 
+import { Providers } from '@/providers/providers'
 import '@/styles/globals.css'
 import { GeistSans } from 'geist/font/sans'
 
@@ -51,29 +49,23 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<ClerkProvider>
-			<html
-				lang='en'
-				suppressHydrationWarning>
-				<body
-					className={cn(
-						'min-h-screen bg-background font-sans antialiased',
-						GeistSans.variable
-					)}>
-					<ThemeProvider
-						attribute='class'
-						defaultTheme='dark'
-						disableTransitionOnChange
-						enableSystem>
-						<div vaul-drawer-wrapper=''>
-							<div className='relative flex min-h-screen flex-col bg-background'>
-								<ConvexClientProvider>{children}</ConvexClientProvider>
-							</div>
+		<html
+			lang='en'
+			suppressHydrationWarning>
+			<body
+				className={cn(
+					'min-h-screen bg-background font-sans antialiased',
+					GeistSans.variable
+				)}>
+				<Providers>
+					<div vaul-drawer-wrapper=''>
+						<div className='relative flex min-h-screen flex-col bg-background'>
+							{children}
 						</div>
-						<Toaster />
-					</ThemeProvider>
-				</body>
-			</html>
-		</ClerkProvider>
+					</div>
+					<Toaster />
+				</Providers>
+			</body>
+		</html>
 	)
 }
