@@ -4,30 +4,35 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { PlaidLinkOptions, usePlaidLink } from 'react-plaid-link'
 import { Button } from './ui/button'
 
+// interface LinkProps {
+// 	token: string | null
+// }
+
 const PlaidLink = () => {
 	const router = useRouter()
 
 	const [token, setToken] = useState(null)
 
+	const createLinkToken = async () => {
+		const response = await fetch('/api/create-token', {
+			method: 'GET'
+		})
+		const data = await response.json()
+		console.log('link_token', data.link_token)
+		setToken(data.link_token)
+	}
+
 	useEffect(() => {
-		const createLinkToken = async () => {
-			const response = await fetch('/api/create-token', {
-				method: 'POST'
-			})
-			const data = await response.json()
-			console.log('link_token', data)
-			setToken(data)
-		}
 		createLinkToken()
 	}, [])
 
-	const onSuccess = useCallback(async (publicToken: string) => {
+	const onSuccess = useCallback(async (public_token: string) => {
 		await fetch('/api/exchange-token', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ public_token: publicToken })
+			body: JSON.stringify({ public_token: public_token })
 		})
 		router.push('/dashboard')
 		// eslint-disable-next-line react-hooks/exhaustive-deps

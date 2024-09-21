@@ -1,20 +1,25 @@
 import { plaidClient } from '@/lib/plaid'
 import { Hono } from 'hono'
-import { setCookie } from 'hono/cookie'
 
 const app = new Hono()
 
 app.post('/', async (c) => {
-	const body = await c.req.json()
-	const exchangeResponse = await plaidClient.itemPublicTokenExchange({
-		public_token: body.public_token
-	})
+	const public_token = (await c.req.json()).public_token
+	try {
+		const exchangeResponse = await plaidClient.itemPublicTokenExchange({
+			public_token,
+			client_id: process.env.PLAID_CLIENT_ID || '',
+			secret: process.env.PLAID_SECRET || ''
+		})
+		const accessToken = exchangeResponse.data.access_token
+		console.log('access_token', accessToken)
+		//TODO: Save the access token to the db
+		return c.json({ access_token: accessToken })
+	} catch (error) {
+		console.error(error)
 
-	setCookie(c, 'plaid_exchange_token', exchangeResponse.data.access_token, {
-		httpOnly: true,
-		secure: true
-	})
-	return c.json({ ok: true })
+		return c.json({ message: error })
+	}
 })
 
 export default app

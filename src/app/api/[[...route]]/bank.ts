@@ -1,3 +1,4 @@
+import { plaidClient } from '@/lib/plaid'
 import { Hono } from 'hono'
 
 interface Bank {
@@ -33,6 +34,20 @@ app.get('/', async (c) => {
 	}, 0)
 
 	return c.json({ data: accounts, totalBanks, totalCurrentBalance })
+})
+
+app.get('/', async (c) => {
+	try {
+		//TODO: Get the access token from the db
+		const accounts = await plaidClient.accountsGet({
+			access_token: accessToken
+		})
+		c.json(accounts.data)
+	} catch (error) {
+		console.error(error)
+
+		return c.json({ message: error })
+	}
 })
 
 export default app
