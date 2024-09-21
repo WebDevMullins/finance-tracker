@@ -3,6 +3,7 @@
 import { useUser } from '@clerk/nextjs'
 
 import HeaderBox from '@/components/header-box'
+import PlaidLink from '@/components/plaid-link'
 import TotalBalanceBox from '@/components/total-balance-box'
 import { useEffect, useState } from 'react'
 
@@ -38,6 +39,7 @@ export default function DashboardPage() {
 						totalCurrentBalance={accounts?.totalCurrentBalance ?? 0}
 					/>
 				</div>
+				<PlaidLink />
 			</div>
 		</div>
 	)
