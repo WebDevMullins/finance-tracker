@@ -4,9 +4,24 @@ import { useUser } from '@clerk/nextjs'
 
 import HeaderBox from '@/components/header-box'
 import TotalBalanceBox from '@/components/total-balance-box'
+import { useEffect, useState } from 'react'
 
 export default function DashboardPage() {
 	const { user } = useUser()
+	const [accounts, setAccounts] = useState<{
+		totalBanks: number
+		totalCurrentBalance: number
+	} | null>(null)
+
+	useEffect(() => {
+		async function fetchAccounts() {
+			const res = await fetch('/api/bank')
+			const data = await res.json()
+			setAccounts(data)
+		}
+		fetchAccounts()
+	}, [])
+
 	return (
 		<div className='container py-12'>
 			<div className='overflow-hidden rounded-[0.5rem] border bg-background shadow'>
@@ -19,8 +34,8 @@ export default function DashboardPage() {
 					/>
 					<TotalBalanceBox
 						accounts={[]}
-						totalBanks={1}
-						totalCurrentBalance={999.99}
+						totalBanks={accounts?.totalBanks ?? 0}
+						totalCurrentBalance={accounts?.totalCurrentBalance ?? 0}
 					/>
 				</div>
 			</div>
