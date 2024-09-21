@@ -2,7 +2,7 @@ import AnimatedCounter from './animated-counter'
 // import DoughnutChart from './DoughnutChart';
 
 const TotalBalanceBox = ({
-	accounts = [],
+	// accounts = [],
 	totalBanks,
 	totalCurrentBalance
 }: TotalBalanceBoxProps) => {
@@ -18,7 +18,6 @@ const TotalBalanceBox = ({
 					<p className='text-sm font-medium text-muted-foreground'>
 						Total Current Balance
 					</p>
-
 					<div className='flex-center flex-1 gap-2 text-2xl font-semibold lg:text-3xl'>
 						<AnimatedCounter amount={totalCurrentBalance} />
 					</div>
