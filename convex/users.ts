@@ -1,6 +1,11 @@
 import { UserJSON } from '@clerk/backend'
 import { v, Validator } from 'convex/values'
-import { internalMutation, query, QueryCtx } from './_generated/server'
+import {
+	internalMutation,
+	mutation,
+	query,
+	QueryCtx
+} from './_generated/server'
 
 export const current = query({
 	args: {},
@@ -38,6 +43,14 @@ export const deleteFromClerk = internalMutation({
 				`Can't delete user, there is none for Clerk user ID: ${clerkUserId}`
 			)
 		}
+	}
+})
+
+export const storePlaidAccessToken = mutation({
+	args: { accessToken: v.string() },
+	async handler(ctx, args) {
+		const user = await getCurrentUserOrThrow(ctx)
+		await ctx.db.patch(user._id, { plaidAccessToken: args.accessToken })
 	}
 })
 

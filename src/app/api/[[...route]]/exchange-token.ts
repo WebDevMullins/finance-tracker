@@ -1,5 +1,6 @@
 import { plaidClient } from '@/lib/plaid'
 import { Hono } from 'hono'
+import { storePlaidAccessToken } from '../../../../convex/users'
 
 const app = new Hono()
 
@@ -14,6 +15,7 @@ app.post('/', async (c) => {
 		const accessToken = exchangeResponse.data.access_token
 		console.log('access_token', accessToken)
 		//TODO: Save the access token to the db
+		await storePlaidAccessToken(accessToken)
 		return c.json({ access_token: accessToken })
 	} catch (error) {
 		console.error(error)
